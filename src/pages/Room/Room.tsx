@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import Chat from '../../components/Chat';
 import char from '../../style/images/visual/char.png';
 
 const Room = () => {
@@ -240,7 +241,8 @@ const Room = () => {
               </ul>
             </div>
           </div>
-          <div className="chatArea">chat</div>
+          <Chat />
+          {/* <div className="chatArea">chat</div> */}
         </div>
       </div>
     </div>
