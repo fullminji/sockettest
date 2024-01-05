@@ -20,7 +20,7 @@ const Room = () => {
   console.log('canvas ', canvasTag);
 
   return (
-    <div className="room">
+    <div className="page room">
       <div className="roomArea">
         <div className="roomTop">
           <h1 className="logo">
@@ -242,7 +242,6 @@ const Room = () => {
             </div>
           </div>
           <Chat />
-          {/* <div className="chatArea">chat</div> */}
         </div>
       </div>
     </div>

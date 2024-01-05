@@ -1,12 +1,14 @@
-import '../../style/sass/Main.scss';
 import question from '../../style/images/icon/question.svg';
 import character from '../../style/images/visual/char.png';
-import title from '../../style/images/title.png';
+import logo from '../../style/images/logo.png';
 
 const Main = () => {
   return (
-    <div className="main">
-      <img src={title} alt="title" className="title" />
+    <div className="page main">
+      <h1>
+        <a href="javascript:;">미스터리 스케치</a>
+        <img src={logo} alt="미스터리 스케치" className="title" />
+      </h1>
       <div className="selectContainer">
         <div className="questionArea">
           <img src={question} alt="questionIcon" className="questionIcon" />

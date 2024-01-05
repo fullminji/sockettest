@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SendButton from '../style/images/icon/send_button.svg';
-import '../style/sass/Chat.scss';
 
 const Chat: React.FC = () => {
   const [message, setMessage] = useState<string>('');

@@ -19,6 +19,15 @@ a {
   cursor: pointer;
 }
 
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 124px);
+  padding: 62px 20px;
+  background: url('../images/bg.png') center / 100% 100% no-repeat;
+}
+
 @mixin blind {
   position: absolute;
   clip: rect(0 0 0 0);
