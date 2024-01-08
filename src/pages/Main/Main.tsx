@@ -6,7 +6,6 @@ const Main = () => {
   return (
     <div className="page main">
       <h1>
-        <a href="javascript:;">미스터리 스케치</a>
         <img src={logo} alt="미스터리 스케치" className="title" />
       </h1>
       <div className="selectContainer">
