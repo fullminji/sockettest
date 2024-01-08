@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import io from 'socket.io-client';
 import SendButton from '../style/images/icon/send_button.svg';
 
@@ -17,26 +17,28 @@ const Chat: React.FC = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
   //서버 주소 입력 필요
-  const socket = io('http://43.203.93.116:8000');
+  const socket = io('http://your-socket-io-server-url');
 
-  useEffect(() => {
-    // 컴포넌트가 마운트될 때 소켓 연결
-    socket.on('message', (data: Message) => {
-      setMessages(prevMessages => [...prevMessages, data]);
-    });
-    // 컴포넌트가 언마운트될 때 소켓 연결 해제
-    return () => {
-      socket.disconnect();
-    };
-  }, [socket]);
-
-  const sendMessage = () => {
+  const sendMessage = useCallback(() => {
     const data = { message, nickname };
     socket.emit('message', data);
     setMessage('');
-  };
+  }, [socket, message, nickname]);
 
-  console.log(messages);
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 소켓 연결 및 이벤트 핸들러 등록
+    const messageHandler = (data: Message) => {
+      setMessages(prevMessages => [...prevMessages, data]);
+    };
+
+    socket.on('message', messageHandler);
+    // 컴포넌트가 언마운트될 때 소켓 연결 및 이벤트 핸들러 해제
+    return () => {
+      socket.off('message', messageHandler);
+    };
+  }, [socket]);
+
+  console.log(message);
   return (
     <div className="chat">
       <div className="chatContainer">
