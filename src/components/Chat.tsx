@@ -12,12 +12,12 @@ const Chat: React.FC = () => {
   const [nickname] = useState<any>(() => {
     //로컬 스토리지에서 닉네임 가져올 예정 test로 기본이름값 지정
     const userNickname = localStorage.getItem('nickname');
-    return userNickname || '햇살';
+    return userNickname || '민지';
   });
 
   const [messages, setMessages] = useState<Message[]>([]);
   //서버 주소 입력 필요
-  const socket = io('http://your-socket-io-server-url');
+  const socket = io('http://43.203.93.116:8000');
 
   const sendMessage = useCallback(() => {
     const data = { message, nickname };
