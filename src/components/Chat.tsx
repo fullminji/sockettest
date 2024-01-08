@@ -17,7 +17,7 @@ const Chat: React.FC = () => {
 
   const [messages, setMessages] = useState<Message[]>([]);
   //서버 주소 입력 필요
-  const socket = io('http://your-socket-io-server-url');
+  const socket = io('http://43.203.93.116:8000');
 
   const sendMessage = useCallback(() => {
     const data = { message, nickname };
