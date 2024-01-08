@@ -12,6 +12,8 @@
     flex-direction: column;
 
     .chatBox {
+      overflow-y: scroll;
+
       p {
         padding: 10px;
         height: 24px;
