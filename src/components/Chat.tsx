@@ -10,32 +10,42 @@ type Message = {
 const Chat: React.FC = () => {
   const [message, setMessage] = useState<string>('');
   const [nickname] = useState<any>(() => {
-    //로컬 스토리지에서 닉네임 가져올 예정 test로 기본이름값 지정
     const userNickname = localStorage.getItem('nickname');
-    return userNickname || '민지';
+    return userNickname || '햇살';
   });
 
   const [messages, setMessages] = useState<Message[]>([]);
-  //서버 주소 입력 필요
-  const socket = io('http://43.203.93.116:8000');
+  const [socket, setSocket] = useState<any>(null);
+
+  useEffect(() => {
+    const newSocket = io('http://43.203.93.116:8000');
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
 
   const sendMessage = useCallback(() => {
-    const data = { message, nickname };
-    socket.emit('message', data);
-    setMessage('');
+    if (socket) {
+      const data = { message, nickname };
+      socket.emit('message', data);
+      setMessage('');
+    }
   }, [socket, message, nickname]);
 
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 소켓 연결 및 이벤트 핸들러 등록
     const messageHandler = (data: Message) => {
       setMessages(prevMessages => [...prevMessages, data]);
     };
 
-    socket.on('message', messageHandler);
-    // 컴포넌트가 언마운트될 때 소켓 연결 및 이벤트 핸들러 해제
-    return () => {
-      socket.off('message', messageHandler);
-    };
+    if (socket) {
+      socket.on('message', messageHandler);
+
+      return () => {
+        socket.off('message', messageHandler);
+      };
+    }
   }, [socket]);
 
   console.log(message);
@@ -43,10 +53,6 @@ const Chat: React.FC = () => {
     <div className="chat">
       <div className="chatContainer">
         <div className="chatBox">
-          {/* <p>닉네임님이 입장하셨습니다.</p>
-          <p>닉네임 : 포크레인</p>
-          <p>현재시간은 1:39am 눈이 감겨요</p>
-          <p>짜라쟌 짝수에만 배경색</p> */}
           {messages.map((msg, index) => (
             <p key={index}>
               {msg.nickname}님 : {msg.message}
